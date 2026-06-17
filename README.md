@@ -10,7 +10,7 @@ a **live working demo**, a plain-English description, common aliases, and the co
 The goal is to teach the right terminology so you stop muddling "component" with "content
 fragment", and to give you a reliable mental model when designing apps.
 
-> **Live demo:** _add your Vercel URL here_ (e.g. `https://whatchamacallit-app.vercel.app`)
+> **Live demo:** **[whatchamacallit-app.vercel.app](https://whatchamacallit-app.vercel.app/)**
 
 ---
 
