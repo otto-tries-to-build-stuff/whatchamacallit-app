@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ── Dark theme (default) ──
+     Colors are space-separated RGB channels so Tailwind can apply alpha
+     (e.g. `bg-accent/15`). Hex equivalents noted alongside each. */
+  :root,
+  .dark {
+    --bg: 10 10 12; /* #0a0a0c */
+    --surface: 18 18 21; /* #121215 */
+    --surface-2: 23 23 27; /* #17171b */
+    --surface-3: 29 29 34; /* #1d1d22 */
+    --ink: 237 237 241; /* #ededf1 */
+    --muted: 155 155 166; /* #9b9ba6 */
+    --faint: 101 101 111; /* #65656f */
+    --accent: 197 242 74; /* #c5f24a */
+    --accent-ink: 10 10 12; /* #0a0a0c */
+    --line: rgba(255, 255, 255, 0.08);
+
+    --grid-line: rgba(255, 255, 255, 0.018);
+    --scrollbar: #2a2a30;
+    color-scheme: dark;
+  }
+
+  /* ── Light theme ── */
+  .light {
+    --bg: 246 246 243; /* #f6f6f3 */
+    --surface: 255 255 255; /* #ffffff */
+    --surface-2: 241 241 237; /* #f1f1ed */
+    --surface-3: 233 233 227; /* #e9e9e3 */
+    --ink: 26 26 30; /* #1a1a1e */
+    --muted: 91 91 100; /* #5b5b64 */
+    --faint: 140 140 149; /* #8c8c95 */
+    --accent: 77 124 15; /* #4d7c0f lime-700 — readable on light surfaces */
+    --accent-ink: 246 246 243; /* #f6f6f3 — light text/marks on the deeper accent */
+    --line: rgba(10, 10, 12, 0.1);
+
+    --grid-line: rgba(10, 10, 12, 0.025);
+    --scrollbar: #c9c9c2;
+    color-scheme: light;
+  }
+
+  html {
+    scrollbar-color: var(--scrollbar) transparent;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.25);
+    color: var(--ink);
+  }
+}
+
+@layer components {
+  /* Subtle blueprint grid behind the whole app. */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  /* Shimmer placeholder block used inside teaching demos. */
+  .skel {
+    display: block;
+    border-radius: 9999px;
+    background: rgb(var(--ink) / 0.11);
+  }
+}

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Idiom — UI reference library</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: '#0a0a0c',
+          surface: '#121215',
+          surface2: '#17171b',
+          surface3: '#1d1d22',
+          ink: '#ededf1',
+          muted: '#9b9ba6',
+          faint: '#65656f',
+          accent: '#c5f24a',
+        },
+        fontFamily: {
+          sans: ['Hanken Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html { scrollbar-color: #2a2a30 transparent; }
+  body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  ::selection { background: rgba(197, 242, 74, 0.25); color: #fff; }
+  .skel { display:block; border-radius:9999px; background: rgba(255,255,255,0.11); }
+  /* subtle grid texture for the app background */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+</style>
+</head>
+<body class="bg-bg font-sans text-ink antialiased" style="background-color: rgb(0, 0, 0)">
+
+<div class="grid-bg min-h-screen">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-30 border-b border-white/[0.07] bg-bg/80 backdrop-blur-xl">
+    <div class="mx-auto flex h-14 max-w-[1320px] items-center gap-4 px-5">
+      <!-- logo -->
+      <a href="#" class="flex shrink-0 items-center gap-2.5">
+        <span class="grid h-7 w-7 place-items-center rounded-[7px] bg-accent">
+          <span class="h-2.5 w-2.5 rounded-[3px] bg-bg"></span>
+        </span>
+        <span class="text-[16px] font-semibold tracking-tight">Whatchmacallit</span>
+        <span class="hidden font-mono text-[10px] text-faint sm:inline">v0.4</span>
+      </a>
+
+      <!-- search -->
+      <div class="ml-2 flex-1">
+        <div class="flex h-9 max-w-md items-center gap-2.5 rounded-lg border border-white/[0.08] bg-surface px-3 text-muted">
+          <svg class="h-4 w-4 shrink-0 text-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+          <span class="flex-1 truncate text-[13px] text-faint">Search components, animations, patterns…</span>
+          <kbd class="hidden rounded border border-white/[0.09] bg-white/[0.03] px-1.5 py-0.5 font-mono text-[10px] text-faint sm:inline-block">⌘K</kbd>
+        </div>
+      </div>
+
+      <!-- right cluster -->
+      <div class="flex shrink-0 items-center gap-3">
+        <!-- theme toggle -->
+        <div class="flex items-center rounded-lg border border-white/[0.08] bg-surface p-0.5">
+          <button class="grid h-7 w-7 place-items-center rounded-[6px] bg-surface3 text-ink shadow-sm" aria-label="Dark">
+            <svg class="h-[15px] w-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          </button>
+          <button class="grid h-7 w-7 place-items-center rounded-[6px] text-faint" aria-label="Light">
+            <svg class="h-[15px] w-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+        </div>
+        <div class="hidden h-5 w-px bg-white/[0.08] md:block"></div>
+        <span class="hidden font-mono text-[11px] text-faint md:inline">86 terms</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="mx-auto flex max-w-[1320px] gap-8 px-5 py-7">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sticky top-[78px] hidden h-fit w-[210px] shrink-0 lg:block">
+      <p class="px-3 pb-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-faint">Library</p>
+      <nav class="space-y-0.5 text-[13.5px]">
+        <a href="#" class="flex items-center justify-between rounded-lg bg-white/[0.05] px-3 py-1.5 font-medium text-ink ring-1 ring-inset ring-white/[0.06]">
+          <span class="flex items-center gap-2.5"><span class="h-1.5 w-1.5 rounded-full bg-accent"></span>All Components</span>
+          <span class="font-mono text-[11px] text-muted">86</span>
+        </a>
+        <div class="h-2"></div>
+        <p class="px-3 pb-1 pt-1 font-mono text-[10.5px] uppercase tracking-[0.14em] text-faint">Categories</p>
+
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span>Navigation</span><span class="font-mono text-[11px] text-faint">9</span></a>
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span>Disclosure</span><span class="font-mono text-[11px] text-faint">7</span></a>
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span>Input</span><span class="font-mono text-[11px] text-faint">12</span></a>
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span>Selection &amp; Display</span><span class="font-mono text-[11px] text-faint">10</span></a>
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span>Feedback</span><span class="font-mono text-[11px] text-faint">8</span></a>
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span class="flex items-center gap-2.5">Layout &amp; Effects</span><span class="font-mono text-[11px] text-faint">11</span></a>
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span>Micro-interactions</span><span class="font-mono text-[11px] text-faint">9</span></a>
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span>Scroll Animations</span><span class="font-mono text-[11px] text-faint">8</span></a>
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span>Text Animations</span><span class="font-mono text-[11px] text-faint">6</span></a>
+        <a href="#" class="flex items-center justify-between rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-white/[0.03] hover:text-ink">
+          <span>Page Transitions</span><span class="font-mono text-[11px] text-faint">6</span></a>
+      </nav>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main class="min-w-0 flex-1">
+
+      <!-- ============ BLUEPRINT / ANATOMY ============ -->
+      <section class="mb-9">
+        <div class="mb-4 flex items-end justify-between gap-4">
+          <div>
+            <div class="mb-1 flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-faint">
+              <span class="h-1 w-1 rounded-full bg-accent"></span>Start here
+            </div>
+            <h1 class="text-[19px] font-semibold tracking-tight">Anatomy of an interface</h1>
+            <p class="mt-0.5 text-[13px] text-muted">The skeleton most screens share. Hover any region to learn what it's called and what it does.</p>
+          </div>
+          <div class="hidden items-center gap-1.5 rounded-full border border-white/[0.08] bg-surface px-3 py-1.5 font-mono text-[11px] text-muted sm:flex">
+            <svg class="h-3.5 w-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
+            Hover a region
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-white/[0.07] bg-surface p-5 sm:p-7">
+          <div class="grid items-stretch gap-6 lg:grid-cols-[1fr_auto]">
+
+            <!-- ===== WEBSITE BLUEPRINT ===== -->
+            <div>
+              <div class="mb-2.5 flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-faint">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+                Website
+              </div>
+              <div class="overflow-visible rounded-xl border border-white/[0.08] bg-surface2 p-2.5">
+                <!-- faux browser bar -->
+                <div class="mb-2.5 flex items-center gap-2 px-1.5 pt-0.5">
+                  <span class="h-2 w-2 rounded-full bg-white/15"></span>
+                  <span class="h-2 w-2 rounded-full bg-white/15"></span>
+                  <span class="h-2 w-2 rounded-full bg-white/15"></span>
+                  <span class="ml-2 h-4 flex-1 rounded-md border border-white/[0.06] bg-white/[0.02]"></span>
+                </div>
+
+                <div class="flex h-[316px] flex-col gap-2.5">
+                  <!-- HEADER -->
+                  <div class="group relative flex h-11 shrink-0 cursor-default items-center justify-between rounded-md border border-dashed border-white/15 bg-white/[0.015] px-3 transition-colors hover:z-20 hover:border-accent/70 hover:bg-accent/[0.05]">
+                    <div class="flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-[3px] bg-white/20 group-hover:bg-accent/60"></span><span class="skel h-1.5 w-10 group-hover:bg-accent/40"></span></div>
+                    <div class="flex items-center gap-3"><span class="skel h-1.5 w-7"></span><span class="skel h-1.5 w-7"></span><span class="skel h-1.5 w-7"></span></div>
+                    <span class="absolute left-3 -bottom-2 font-mono text-[9px] uppercase tracking-wider text-faint group-hover:text-accent">Header</span>
+                    <div class="pointer-events-none absolute left-1/2 top-full z-30 mt-3 w-60 -translate-x-1/2 translate-y-1 rounded-lg border border-white/10 bg-surface3 p-3 text-left opacity-0 shadow-2xl transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+                      <p class="text-[12.5px] font-semibold text-ink">Header <span class="font-mono text-[10px] font-normal text-faint">· Navbar</span></p>
+                      <p class="mt-1 text-[11.5px] leading-relaxed text-muted">Top bar carrying the logo, primary navigation and global actions. Usually sticks to the top as you scroll.</p>
+                    </div>
+                  </div>
+
+                  <!-- HERO -->
+                  <div class="group relative flex h-16 shrink-0 cursor-default flex-col justify-center gap-1.5 rounded-md border border-dashed border-white/15 bg-white/[0.015] px-3 transition-colors hover:z-20 hover:border-accent/70 hover:bg-accent/[0.05]">
+                    <span class="skel h-2 w-2/5 group-hover:bg-accent/40"></span>
+                    <span class="skel h-1.5 w-3/5"></span>
+                    <span class="mt-0.5 h-3.5 w-16 rounded-[4px] bg-white/15 group-hover:bg-accent/50"></span>
+                    <span class="absolute right-3 top-2 font-mono text-[9px] uppercase tracking-wider text-faint group-hover:text-accent">Hero</span>
+                    <div class="pointer-events-none absolute left-1/2 top-full z-30 mt-3 w-60 -translate-x-1/2 translate-y-1 rounded-lg border border-white/10 bg-surface3 p-3 text-left opacity-0 shadow-2xl transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+                      <p class="text-[12.5px] font-semibold text-ink">Hero <span class="font-mono text-[10px] font-normal text-faint">· Above the fold</span></p>
+                      <p class="mt-1 text-[11.5px] leading-relaxed text-muted">The first full-width band — headline, value proposition and the primary call-to-action a visitor sees first.</p>
+                    </div>
+                  </div>
+
+                  <!-- MIDDLE: SIDEBAR + CONTENT -->
+                  <div class="flex min-h-0 flex-1 gap-2.5">
+                    <!-- SIDEBAR -->
+                    <div class="group relative flex w-[26%] cursor-default flex-col gap-2 rounded-md border border-dashed border-white/15 bg-white/[0.015] p-2.5 transition-colors hover:z-20 hover:border-accent/70 hover:bg-accent/[0.05]">
+                      <span class="skel h-1.5 w-3/4 group-hover:bg-accent/40"></span>
+                      <span class="skel h-1.5 w-full"></span>
+                      <span class="skel h-1.5 w-2/3"></span>
+                      <span class="skel h-1.5 w-5/6"></span>
+                      <span class="absolute -bottom-2 left-2 font-mono text-[9px] uppercase tracking-wider text-faint group-hover:text-accent">Sidebar</span>
+                      <div class="pointer-events-none absolute left-0 top-full z-30 mt-3 w-60 translate-y-1 rounded-lg border border-white/10 bg-surface3 p-3 text-left opacity-0 shadow-2xl transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+                        <p class="text-[12.5px] font-semibold text-ink">Sidebar <span class="font-mono text-[10px] font-normal text-faint">· Side nav</span></p>
+                        <p class="mt-1 text-[11.5px] leading-relaxed text-muted">A vertical rail of secondary navigation or filters running alongside the main content.</p>
+                      </div>
+                    </div>
+                    <!-- CONTENT -->
+                    <div class="group relative flex flex-1 cursor-default flex-col rounded-md border border-dashed border-white/15 bg-white/[0.015] p-2.5 transition-colors hover:z-20 hover:border-accent/70 hover:bg-accent/[0.05]">
+                      <div class="grid flex-1 grid-cols-3 grid-rows-2 gap-2">
+                        <span class="rounded border border-white/[0.07] bg-white/[0.02] group-hover:border-accent/30"></span>
+                        <span class="rounded border border-white/[0.07] bg-white/[0.02]"></span>
+                        <span class="rounded border border-white/[0.07] bg-white/[0.02]"></span>
+                        <span class="rounded border border-white/[0.07] bg-white/[0.02]"></span>
+                        <span class="rounded border border-white/[0.07] bg-white/[0.02]"></span>
+                        <span class="rounded border border-white/[0.07] bg-white/[0.02]"></span>
+                      </div>
+                      <span class="absolute -bottom-2 right-2 font-mono text-[9px] uppercase tracking-wider text-faint group-hover:text-accent">Content</span>
+                      <div class="pointer-events-none absolute left-1/2 top-full z-30 mt-3 w-60 -translate-x-1/2 translate-y-1 rounded-lg border border-white/10 bg-surface3 p-3 text-left opacity-0 shadow-2xl transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+                        <p class="text-[12.5px] font-semibold text-ink">Content <span class="font-mono text-[10px] font-normal text-faint">· Main / body</span></p>
+                        <p class="mt-1 text-[11.5px] leading-relaxed text-muted">The primary work area — the grid, feed or document the whole page is built around.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- FOOTER -->
+                  <div class="group relative flex h-12 shrink-0 cursor-default items-center justify-between rounded-md border border-dashed border-white/15 bg-white/[0.015] px-3 transition-colors hover:z-20 hover:border-accent/70 hover:bg-accent/[0.05]">
+                    <div class="flex flex-col gap-1.5"><span class="skel h-1.5 w-12 group-hover:bg-accent/40"></span><span class="skel h-1 w-8"></span></div>
+                    <div class="flex gap-4"><span class="skel h-1 w-6"></span><span class="skel h-1 w-6"></span><span class="skel h-1 w-6"></span></div>
+                    <span class="absolute right-3 -top-2 font-mono text-[9px] uppercase tracking-wider text-faint group-hover:text-accent">Footer</span>
+                    <div class="pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 w-60 -translate-x-1/2 -translate-y-1 rounded-lg border border-white/10 bg-surface3 p-3 text-left opacity-0 shadow-2xl transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+                      <p class="text-[12.5px] font-semibold text-ink">Footer</p>
+                      <p class="mt-1 text-[11.5px] leading-relaxed text-muted">The closing band — secondary links, legal, social and metadata that lives at the very bottom.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== MOBILE BLUEPRINT ===== -->
+            <div>
+              <div class="mb-2.5 flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-faint">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+                Mobile app
+              </div>
+              <div class="overflow-visible rounded-[26px] border border-white/[0.08] bg-surface2 p-2.5" style="width:200px">
+                <div class="flex h-[372px] flex-col gap-2 rounded-[18px] p-1.5">
+                  <!-- STATUS BAR -->
+                  <div class="group relative flex h-5 shrink-0 cursor-default items-center justify-between rounded border border-dashed border-white/15 bg-white/[0.015] px-2.5 transition-colors hover:z-20 hover:border-accent/70 hover:bg-accent/[0.05]">
+                    <span class="skel h-1 w-5 group-hover:bg-accent/40"></span>
+                    <div class="flex gap-1"><span class="skel h-1 w-2"></span><span class="skel h-1 w-2"></span><span class="skel h-1 w-3"></span></div>
+                    <div class="pointer-events-none absolute right-full top-1/2 z-30 mr-3 w-52 -translate-y-1/2 translate-x-1 rounded-lg border border-white/10 bg-surface3 p-3 text-left opacity-0 shadow-2xl transition-all duration-150 group-hover:translate-x-0 group-hover:opacity-100">
+                      <p class="text-[12.5px] font-semibold text-ink">Status bar</p>
+                      <p class="mt-1 text-[11.5px] leading-relaxed text-muted">The OS row — time, signal and battery. Owned by the device, not your app.</p>
+                    </div>
+                  </div>
+                  <!-- APP BAR -->
+                  <div class="group relative flex h-10 shrink-0 cursor-default items-center justify-between rounded-md border border-dashed border-white/15 bg-white/[0.015] px-2.5 transition-colors hover:z-20 hover:border-accent/70 hover:bg-accent/[0.05]">
+                    <span class="h-3.5 w-3.5 rounded-[3px] bg-white/15 group-hover:bg-accent/50"></span>
+                    <span class="skel h-1.5 w-12 group-hover:bg-accent/40"></span>
+                    <span class="h-3.5 w-3.5 rounded-full bg-white/15 group-hover:bg-accent/50"></span>
+                    <div class="pointer-events-none absolute right-full top-1/2 z-30 mr-3 w-52 -translate-y-1/2 translate-x-1 rounded-lg border border-white/10 bg-surface3 p-3 text-left opacity-0 shadow-2xl transition-all duration-150 group-hover:translate-x-0 group-hover:opacity-100">
+                      <p class="text-[12.5px] font-semibold text-ink">App bar <span class="font-mono text-[10px] font-normal text-faint">· Top bar</span></p>
+                      <p class="mt-1 text-[11.5px] leading-relaxed text-muted">The mobile header — screen title, a back affordance and one or two key actions.</p>
+                    </div>
+                  </div>
+                  <!-- FEED -->
+                  <div class="group relative flex min-h-0 flex-1 cursor-default flex-col gap-2 rounded-md border border-dashed border-white/15 bg-white/[0.015] p-2.5 transition-colors hover:z-20 hover:border-accent/70 hover:bg-accent/[0.05]">
+                    <span class="h-12 w-full shrink-0 rounded border border-white/[0.07] bg-white/[0.02] group-hover:border-accent/30"></span>
+                    <span class="h-9 w-full shrink-0 rounded border border-white/[0.07] bg-white/[0.02]"></span>
+                    <span class="h-9 w-full shrink-0 rounded border border-white/[0.07] bg-white/[0.02]"></span>
+                    <span class="absolute right-2 top-1.5 font-mono text-[9px] uppercase tracking-wider text-faint group-hover:text-accent">Feed</span>
+                    <div class="pointer-events-none absolute right-full top-1/2 z-30 mr-3 w-52 -translate-y-1/2 translate-x-1 rounded-lg border border-white/10 bg-surface3 p-3 text-left opacity-0 shadow-2xl transition-all duration-150 group-hover:translate-x-0 group-hover:opacity-100">
+                      <p class="text-[12.5px] font-semibold text-ink">Feed <span class="font-mono text-[10px] font-normal text-faint">· Content area</span></p>
+                      <p class="mt-1 text-[11.5px] leading-relaxed text-muted">The scrollable body — the cards, list or feed the screen is centered on.</p>
+                    </div>
+                  </div>
+                  <!-- TAB BAR -->
+                  <div class="group relative flex h-12 shrink-0 cursor-default items-center justify-around rounded-md border border-dashed border-white/15 bg-white/[0.015] px-2 transition-colors hover:z-20 hover:border-accent/70 hover:bg-accent/[0.05]">
+                    <span class="flex flex-col items-center gap-1"><span class="h-3 w-3 rounded-[3px] bg-white/25 group-hover:bg-accent/60"></span><span class="skel h-0.5 w-3"></span></span>
+                    <span class="flex flex-col items-center gap-1"><span class="h-3 w-3 rounded-[3px] bg-white/15"></span><span class="skel h-0.5 w-3"></span></span>
+                    <span class="flex flex-col items-center gap-1"><span class="h-3 w-3 rounded-[3px] bg-white/15"></span><span class="skel h-0.5 w-3"></span></span>
+                    <span class="flex flex-col items-center gap-1"><span class="h-3 w-3 rounded-[3px] bg-white/15"></span><span class="skel h-0.5 w-3"></span></span>
+                    <div class="pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 w-52 -translate-x-1/2 -translate-y-1 rounded-lg border border-white/10 bg-surface3 p-3 text-left opacity-0 shadow-2xl transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+                      <p class="text-[12.5px] font-semibold text-ink">Tab bar <span class="font-mono text-[10px] font-normal text-faint">· Bottom nav</span></p>
+                      <p class="mt-1 text-[11.5px] leading-relaxed text-muted">Bottom navigation — 3–5 primary destinations kept within thumb's reach.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <div class="mb-5 h-px w-full bg-white/[0.06]"></div>
+
+      <!-- toolbar -->
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h1 class="text-[19px] font-semibold tracking-tight">All Components</h1>
+          <p class="mt-0.5 text-[13px] text-muted">A growing dictionary of interface patterns, animations &amp; the words for them.</p>
+        </div>
+        <div class="hidden items-center gap-2 sm:flex">
+          <button class="flex h-8 items-center gap-1.5 rounded-lg border border-white/[0.08] bg-surface px-3 text-[12.5px] text-muted">
+            Sort: Popular
+            <svg class="h-3.5 w-3.5 text-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-3">
+
+        <!-- 1 · TABS -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 flex-col justify-center gap-3 overflow-hidden rounded-lg border border-white/[0.06] bg-surface2 p-5">
+            <div class="flex items-center gap-5 font-mono text-[11px]">
+              <span class="relative pb-2 text-ink">Overview<span class="absolute -bottom-px left-0 h-0.5 w-full rounded-full bg-accent"></span></span>
+              <span class="pb-2 text-faint">Activity</span>
+              <span class="pb-2 text-faint">Settings</span>
+            </div>
+            <div class="-mt-3 h-px w-full bg-white/[0.07]"></div>
+            <div class="space-y-1.5 pt-1">
+              <span class="skel h-1.5 w-3/4"></span>
+              <span class="skel h-1.5 w-5/6"></span>
+              <span class="skel h-1.5 w-2/5"></span>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Tabs</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Tab Bar · Segmented Nav</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-faint"></span>Navigation</span>
+          </div>
+        </article>
+
+        <!-- 2 · ACCORDION -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 flex-col justify-center gap-2 overflow-hidden rounded-lg border border-white/[0.06] bg-surface2 p-4">
+            <div class="rounded-md border border-white/[0.07] bg-white/[0.02]">
+              <div class="flex items-center justify-between px-3 py-2">
+                <span class="skel h-1.5 w-20"></span>
+                <svg class="h-3 w-3 rotate-180 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+              <div class="space-y-1.5 px-3 pb-3">
+                <span class="skel h-1.5 w-11/12 bg-white/[0.08]"></span>
+                <span class="skel h-1.5 w-2/3 bg-white/[0.08]"></span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between rounded-md border border-white/[0.06] px-3 py-2">
+              <span class="skel h-1.5 w-16"></span>
+              <svg class="h-3 w-3 text-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+            <div class="flex items-center justify-between rounded-md border border-white/[0.06] px-3 py-2">
+              <span class="skel h-1.5 w-24"></span>
+              <svg class="h-3 w-3 text-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Accordion</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Disclosure · Collapsible</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-faint"></span>Disclosure</span>
+          </div>
+        </article>
+
+        <!-- 3 · MODAL -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 items-center justify-center overflow-hidden rounded-lg border border-white/[0.06] bg-surface2">
+            <!-- dimmed page behind -->
+            <div class="absolute inset-0 space-y-2 p-4 opacity-30">
+              <span class="skel h-1.5 w-1/2"></span><span class="skel h-1.5 w-5/6"></span><span class="skel h-1.5 w-3/4"></span>
+            </div>
+            <div class="absolute inset-0 bg-bg/55"></div>
+            <!-- dialog -->
+            <div class="relative w-[68%] rounded-lg border border-white/[0.1] bg-surface3 p-3 shadow-2xl">
+              <span class="skel h-1.5 w-2/5"></span>
+              <div class="mt-2 space-y-1.5"><span class="skel h-1 w-full bg-white/[0.08]"></span><span class="skel h-1 w-4/5 bg-white/[0.08]"></span></div>
+              <div class="mt-3 flex justify-end gap-1.5">
+                <span class="h-4 w-9 rounded-[5px] border border-white/[0.1]"></span>
+                <span class="h-4 w-9 rounded-[5px] bg-accent"></span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Modal Dialog</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Modal · Lightbox</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-faint"></span>Feedback</span>
+          </div>
+        </article>
+
+        <!-- 4 · DROPDOWN -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 flex-col items-center overflow-hidden rounded-lg border border-white/[0.06] bg-surface2 p-4">
+            <div class="flex w-[62%] items-center justify-between rounded-md border border-white/[0.1] bg-surface3 px-2.5 py-1.5">
+              <span class="skel h-1.5 w-12"></span>
+              <svg class="h-3 w-3 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+            <div class="mt-2 w-[62%] space-y-1 rounded-md border border-white/[0.09] bg-surface3 p-1.5 shadow-xl">
+              <div class="flex items-center gap-2 rounded-[5px] bg-accent/15 px-2 py-1.5"><span class="h-1 w-1 rounded-full bg-accent"></span><span class="skel h-1.5 w-2/3 bg-accent/40"></span></div>
+              <div class="flex items-center gap-2 px-2 py-1.5"><span class="h-1 w-1 rounded-full bg-faint"></span><span class="skel h-1.5 w-3/4"></span></div>
+              <div class="flex items-center gap-2 px-2 py-1.5"><span class="h-1 w-1 rounded-full bg-faint"></span><span class="skel h-1.5 w-1/2"></span></div>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Dropdown Menu</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Menu · Popover Menu</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-faint"></span>Navigation</span>
+          </div>
+        </article>
+
+        <!-- 5 · TOOLTIP -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 items-center justify-center overflow-hidden rounded-lg border border-white/[0.06] bg-surface2">
+            <div class="relative flex flex-col items-center">
+              <div class="rounded-md border border-white/[0.1] bg-surface3 px-2.5 py-1 font-mono text-[10px] text-ink shadow-lg">Save changes</div>
+              <div class="-mt-px h-2 w-2 rotate-45 border-b border-r border-white/[0.1] bg-surface3"></div>
+              <div class="mt-3 grid h-8 w-8 place-items-center rounded-md border border-white/[0.09] bg-white/[0.03]">
+                <svg class="h-4 w-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M7 3v5h8M7 21v-6h10v6"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Tooltip</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Hint · Infotip</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-faint"></span>Disclosure</span>
+          </div>
+        </article>
+
+        <!-- 6 · CAROUSEL -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 flex-col items-center justify-center gap-3 overflow-hidden rounded-lg border border-white/[0.06] bg-surface2 px-3">
+            <div class="flex w-full items-center justify-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <div class="h-16 w-12 shrink-0 rounded-md border border-white/[0.06] bg-white/[0.03] opacity-40"></div>
+              <div class="h-20 w-24 shrink-0 rounded-md border border-white/[0.1] bg-surface3"></div>
+              <div class="h-16 w-12 shrink-0 rounded-md border border-white/[0.06] bg-white/[0.03] opacity-40"></div>
+              <svg class="h-4 w-4 shrink-0 text-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="h-1.5 w-4 rounded-full bg-accent"></span>
+              <span class="h-1.5 w-1.5 rounded-full bg-white/20"></span>
+              <span class="h-1.5 w-1.5 rounded-full bg-white/20"></span>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Carousel</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Slider · Slideshow</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-faint"></span>Selection &amp; Display</span>
+          </div>
+        </article>
+
+        <!-- 7 · TOAST -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 items-end justify-end overflow-hidden rounded-lg border border-white/[0.06] bg-surface2 p-3">
+            <div class="absolute inset-0 space-y-2 p-4 opacity-[0.18]"><span class="skel h-1.5 w-2/3"></span><span class="skel h-1.5 w-1/2"></span></div>
+            <div class="relative w-[78%] overflow-hidden rounded-lg border border-white/[0.1] bg-surface3 p-2.5 shadow-2xl">
+              <div class="flex items-start gap-2.5">
+                <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent/15">
+                  <svg class="h-3 w-3 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                <div class="flex-1 space-y-1.5 py-0.5">
+                  <span class="skel h-1.5 w-3/5"></span>
+                  <span class="skel h-1 w-4/5 bg-white/[0.08]"></span>
+                </div>
+              </div>
+              <div class="absolute bottom-0 left-0 h-0.5 w-2/3 bg-accent"></div>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Toast Notification</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Snackbar · Flash Message</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-faint"></span>Feedback</span>
+          </div>
+        </article>
+
+        <!-- 8 · PARALLAX -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 items-center justify-center overflow-hidden rounded-lg border border-white/[0.06] bg-surface2">
+            <div class="relative h-24 w-32">
+              <div class="absolute left-1 top-7 h-16 w-28 rounded-md border border-white/[0.06] bg-white/[0.025]"></div>
+              <div class="absolute left-5 top-3 h-16 w-24 rounded-md border border-white/[0.08] bg-white/[0.05]"></div>
+              <div class="absolute left-9 -top-1 h-16 w-20 rounded-md border border-accent/40 bg-accent/10"></div>
+            </div>
+            <div class="absolute right-3 top-1/2 flex -translate-y-1/2 flex-col items-center gap-1 text-faint">
+              <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+              <span class="h-8 w-px bg-gradient-to-b from-white/25 to-transparent"></span>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Parallax</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Depth Scroll · Multi-layer</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-accent"></span>Scroll Animations</span>
+          </div>
+        </article>
+
+        <!-- 9 · BENTO GRID -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative h-40 overflow-hidden rounded-lg border border-white/[0.06] bg-surface2 p-3">
+            <div class="grid h-full grid-cols-3 grid-rows-3 gap-2">
+              <div class="col-span-2 row-span-2 rounded-md border border-accent/30 bg-accent/[0.08]"></div>
+              <div class="rounded-md border border-white/[0.07] bg-white/[0.03]"></div>
+              <div class="rounded-md border border-white/[0.07] bg-white/[0.03]"></div>
+              <div class="rounded-md border border-white/[0.07] bg-white/[0.03]"></div>
+              <div class="col-span-2 rounded-md border border-white/[0.07] bg-white/[0.03]"></div>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Bento Grid</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Mosaic · Tile Grid</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-accent"></span>Layout &amp; Effects</span>
+          </div>
+        </article>
+
+        <!-- 10 · SPLIT TEXT -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 items-center justify-center overflow-hidden rounded-lg border border-white/[0.06] bg-surface2">
+            <div class="flex items-end gap-[3px] font-mono text-[26px] font-semibold leading-none">
+              <span class="translate-y-0 text-ink">S</span>
+              <span class="-translate-y-1.5 text-ink/80">T</span>
+              <span class="translate-y-1 text-accent">A</span>
+              <span class="-translate-y-0.5 text-ink/90">G</span>
+              <span class="translate-y-1.5 text-ink/60">G</span>
+              <span class="-translate-y-1 text-ink/80">E</span>
+              <span class="translate-y-0.5 text-ink/40">R</span>
+            </div>
+            <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5 text-faint">
+              <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Split Text</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Stagger Reveal · Letter Split</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-accent"></span>Text Animations</span>
+          </div>
+        </article>
+
+        <!-- 11 · AURORA (featured / opened) -->
+        <article class="group relative rounded-xl border border-accent/40 bg-surface p-3 ring-1 ring-accent/20 transition-colors">
+          <span class="absolute right-3 top-3 z-10 rounded-full bg-accent px-2 py-0.5 font-mono text-[9.5px] font-semibold text-bg">OPEN</span>
+          <div class="relative h-40 overflow-hidden rounded-lg border border-white/[0.06] bg-surface2">
+            <div class="absolute inset-0" style="filter:blur(26px); transform:scale(1.2); background:
+              radial-gradient(42% 52% at 24% 32%, rgba(197,242,74,0.55), transparent 70%),
+              radial-gradient(46% 56% at 76% 34%, rgba(139,92,246,0.55), transparent 70%),
+              radial-gradient(50% 60% at 56% 82%, rgba(56,189,248,0.5), transparent 70%);"></div>
+            <div class="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-bg/40 to-transparent"></div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Aurora Background</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Gradient Mesh · Ambient Glow</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-accent"></span>Layout &amp; Effects</span>
+          </div>
+        </article>
+
+        <!-- 12 · SCROLL REVEAL -->
+        <article class="group rounded-xl border border-white/[0.07] bg-surface p-3 transition-colors hover:border-white/[0.12]">
+          <div class="relative flex h-40 flex-col justify-center gap-2 overflow-hidden rounded-lg border border-white/[0.06] bg-surface2 px-5">
+            <div class="flex items-center gap-2.5 opacity-100">
+              <span class="h-1 w-1 rounded-full bg-accent"></span><span class="skel h-1.5 w-5/6"></span>
+            </div>
+            <div class="flex translate-y-1 items-center gap-2.5 opacity-60">
+              <span class="h-1 w-1 rounded-full bg-faint"></span><span class="skel h-1.5 w-2/3 bg-white/[0.08]"></span>
+            </div>
+            <div class="flex translate-y-2 items-center gap-2.5 opacity-25">
+              <span class="h-1 w-1 rounded-full bg-faint"></span><span class="skel h-1.5 w-3/4 bg-white/[0.06]"></span>
+            </div>
+            <div class="absolute bottom-3 right-3 flex flex-col items-center gap-1 text-faint">
+              <span class="h-6 w-px border-l border-dashed border-white/25"></span>
+              <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+          <div class="mt-3 flex items-start justify-between gap-2 px-1">
+            <div class="min-w-0">
+              <h3 class="text-[15px] font-medium">Scroll Reveal</h3>
+              <p class="mt-1 font-mono text-[11px] text-faint">a.k.a. Reveal on Scroll · Fade-in-up</p>
+            </div>
+            <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.07] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-accent"></span>Scroll Animations</span>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- ============ EXPANDED DETAIL ============ -->
+      <section class="mt-9">
+        <div class="mb-3 flex items-center gap-2 font-mono text-[11px] text-faint">
+          <span>All Components</span>
+          <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
+          <span class="text-muted">Layout &amp; Effects</span>
+          <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
+          <span class="text-accent">Aurora Background</span>
+        </div>
+
+        <div class="overflow-hidden rounded-2xl border border-white/[0.09] bg-surface">
+          <div class="grid lg:grid-cols-[minmax(0,46%)_1fr]">
+
+            <!-- big visual -->
+            <div class="relative min-h-[300px] border-b border-white/[0.07] lg:border-b-0 lg:border-r">
+              <div class="absolute inset-0" style="filter:blur(46px); transform:scale(1.25); background:
+                radial-gradient(40% 50% at 22% 30%, rgba(197,242,74,0.6), transparent 70%),
+                radial-gradient(44% 54% at 78% 32%, rgba(139,92,246,0.6), transparent 70%),
+                radial-gradient(52% 62% at 55% 84%, rgba(56,189,248,0.55), transparent 70%),
+                radial-gradient(40% 40% at 85% 75%, rgba(244,114,182,0.4), transparent 70%);"></div>
+              <div class="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-bg/50 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-white/15 bg-bg/40 px-3 py-1 font-mono text-[10.5px] text-ink backdrop-blur-md">
+                <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-accent"></span>live demo
+              </div>
+            </div>
+
+            <!-- meta -->
+            <div class="p-6 lg:p-7">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="mb-2 flex items-center gap-2">
+                    <span class="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] px-2 py-0.5 text-[10.5px] font-medium text-muted"><span class="h-1 w-1 rounded-full bg-accent"></span>Layout &amp; Effects</span>
+                  </div>
+                  <h2 class="text-[24px] font-semibold tracking-tight">Aurora Background</h2>
+                  <p class="mt-1 font-mono text-[12px] text-faint">a.k.a. Gradient Mesh · Ambient Glow · Animated Gradient</p>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <button class="grid h-8 w-8 place-items-center rounded-lg border border-white/[0.08] bg-surface2 text-muted"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 12 6 5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg></button>
+                  <button class="grid h-8 w-8 place-items-center rounded-lg border border-white/[0.08] bg-surface2 text-muted"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
+                </div>
+              </div>
+
+              <p class="mt-5 text-[14.5px] leading-relaxed text-muted">A softly blurred, slowly shifting field of overlapping color gradients used as ambient page or hero backdrop — evoking the northern lights behind your content.</p>
+
+              <div class="mt-6 grid gap-6 sm:grid-cols-2">
+                <div>
+                  <h4 class="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-faint">When to use</h4>
+                  <ul class="space-y-2 text-[13px] text-muted">
+                    <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Hero sections &amp; empty states that need depth without imagery</li>
+                    <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Setting brand mood behind large, sparse type</li>
+                    <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Login, splash &amp; marketing surfaces</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-faint">When not to use</h4>
+                  <ul class="space-y-2 text-[13px] text-muted">
+                    <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-2 shrink-0 rounded-full bg-white/20"></span>Behind dense text — contrast suffers</li>
+                    <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-2 shrink-0 rounded-full bg-white/20"></span>Perf-sensitive or low-power devices</li>
+                    <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-2 shrink-0 rounded-full bg-white/20"></span>Data-dense dashboards &amp; tables</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <h4 class="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-faint">Related to</h4>
+                <div class="flex flex-wrap gap-2">
+                  <a href="#" class="rounded-md border border-white/[0.08] bg-surface2 px-2.5 py-1 font-mono text-[11.5px] text-muted transition-colors hover:border-accent/40 hover:text-accent">Gradient Mesh</a>
+                  <a href="#" class="rounded-md border border-white/[0.08] bg-surface2 px-2.5 py-1 font-mono text-[11.5px] text-muted transition-colors hover:border-accent/40 hover:text-accent">Animated Gradient</a>
+                  <a href="#" class="rounded-md border border-white/[0.08] bg-surface2 px-2.5 py-1 font-mono text-[11.5px] text-muted transition-colors hover:border-accent/40 hover:text-accent">Spotlight</a>
+                </div>
+              </div>
+
+              <!-- show code -->
+              <div class="mt-7 border-t border-white/[0.07] pt-5">
+                <button class="flex items-center gap-2 text-[13px] font-medium text-ink">
+                  <svg class="h-3.5 w-3.5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                  Show code
+                  <span class="rounded border border-white/[0.08] bg-surface2 px-1.5 py-0.5 font-mono text-[10px] text-faint">CSS</span>
+                </button>
+                <!-- collapsed code preview -->
+                <div class="mt-3 overflow-hidden rounded-lg border border-white/[0.08] bg-bg">
+                  <div class="flex items-center justify-between border-b border-white/[0.06] px-3 py-2">
+                    <div class="flex items-center gap-2 font-mono text-[11px] text-faint">
+                      <span class="h-2 w-2 rounded-full bg-white/15"></span>aurora.css
+                    </div>
+                    <button class="flex items-center gap-1.5 font-mono text-[11px] text-faint">
+                      <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                      Copy
+                    </button>
+                  </div>
+                  <div class="relative px-3 py-3">
+                    <pre class="font-mono text-[11.5px] leading-relaxed text-muted"><span class="text-faint">.aurora</span> {
+  <span class="text-accent">filter</span>: blur(46px);
+  <span class="text-accent">background</span>: radial-gradient(…);</pre>
+                    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-bg to-transparent"></div>
+                    <p class="relative mt-1 font-mono text-[11px] text-faint">+ 14 more lines</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="h-12"></div>
+    </main>
+  </div>
+</div>
+
+<template id="__bundler_thumbnail" data-bg-color="#0a0a0c">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0a0a0c"/>
+    <rect x="500" y="300" width="200" height="200" rx="44" fill="#c5f24a"/>
+    <rect x="565" y="365" width="70" height="70" rx="18" fill="#0a0a0c"/>
+  </svg>
+</template>
+
+</body>
+</html>
